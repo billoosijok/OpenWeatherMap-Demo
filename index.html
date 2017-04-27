@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Open Weather Map</title>
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+	<link rel="stylesheet" href="css/style.css">
+	<script src="js/mustache.min.js"></script>
+	<script   src="https://code.jquery.com/jquery-3.2.1.min.js"   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="   crossorigin="anonymous"></script>	<script src="js/request-api.js"></script>
+</head>
+<body>
+	<main class="main">
+		<div class="top-bar">
+			<div class="container">
+				<form id="search-form">
+					<input type="text" name="q" placeholder="City or Zip" id="search-box" >
+					<input type="submit">
+				</form>
+			</div>
+		</div>
+		<main class="main weather-result" id="weather-result">
+			<div class="container">
+				<!-- To be filled ... -->
+			</div>
+		</main class="main">	
+	</main>
+	
+
+	<script type="text/template" id="template">
+		<p><b>Name:</b> {{name}}</p>
+		<p><b>Temp:</b> {{main.temp}}</p>
+		<p><b>Temp_min:</b> {{main.temp_min}}</p>
+		<p><b>Temp_max:</b> {{main.temp_max}}</p>
+		<p><b>Humidity:</b> {{main.humidity}}</p>
+		<p><b>Pressure:</b> {{main.pressure}}</p>
+		<p><b>Wind Speed:</b> {{wind.speed}}</p>
+		<br>
+	</script>
+	<script src="js/KEYS.js"></script>
+	<script src="js/script.js"></script>
+	</body>
+</html>

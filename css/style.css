@@ -5,7 +5,6 @@
 body {
 	margin: 0;
 	padding: 0;
-	background-image: url('../resources/nyt-logo.png');
 	background-size: 50%;
 	background-repeat: no-repeat;
 
@@ -20,6 +19,10 @@ body {
 .container {
 	max-width: 800px;
 	margin: auto;
+}
+
+.clear {
+	clear: both;
 }
 
 header.main {
@@ -44,9 +47,6 @@ header.main .ui-state-active .ui-tabs-anchor{
 	border-bottom-color: rgba(0,0,0,1);
 }*/
 
-.weather-result .container {
-	min-height: 60vh;
-}
 
 .weather-result .loading {
 	margin: auto;
@@ -58,7 +58,7 @@ header.main .ui-state-active .ui-tabs-anchor{
 
 	position: relative;
 
-	animation-name: enter;
+	animation-name: enterFromBottom;
 	animation-duration: 0.2s;
 }
 
@@ -68,7 +68,7 @@ header.main .ui-state-active .ui-tabs-anchor{
 	color: rgba(0,0,0,0.7);
 	font-size: 30px;
 	position: relative;
-	animation-name: enter;
+	animation-name: enterFromBottom;
 	animation-duration: 0.15s;
 	animation-delay: 0.1s;
 	animation-fill-mode: forwards;
@@ -76,6 +76,8 @@ header.main .ui-state-active .ui-tabs-anchor{
 
 .top-bar {
 	padding: 60px;
+	/*background-color: rgba(0,0,0,0.2);*/
+
 }
 
 .top-bar form {
@@ -85,13 +87,15 @@ header.main .ui-state-active .ui-tabs-anchor{
 .top-bar #search-box {
 	display: block;
 	width: 100%;
-	padding: 10px;
+	padding: 10px 20px;
 	font-size: 30px;
 	background: white url('../resources/search.png');
 	background-repeat: no-repeat;
-	background-position: 99%;
+	background-position: 98%;
 	background-size: 4%;
 	padding-right: 60px;
+	border-radius: 100px;
+	border: 2px solid rgba(0,0,0,1);
 	font-family: "Open Sans", Arial;
 }
 
@@ -106,84 +110,95 @@ header.main .ui-state-active .ui-tabs-anchor{
 	cursor: pointer;
 }
 
+.weather-result .container {
+	padding: 20px;
+	/*border-radius: 50px;*/
+	/*box-shadow: 0 0 2px rgba(0,0,0,0.5)*/
+}
 
-.weather-result p {
-	float: left;
-	width: 30%;
-	margin: 10px 1%;
-	padding: 10px;
-	border-bottom: 1px solid rgba(0,0,0,0.4);
-	display: flex;
-	flex-direction: column;
-	flex-wrap: wrap;
-	justify-content: flex-start;
+
+.weather-result .container > * {
 
 	opacity: 0;
 	position: relative;
 
-	animation-name: enter;
+	animation-name: enterFromBottom;
 	animation-duration: 0.2s;
 	animation-delay: 0.2s;
 	animation-timing-function: ease-out;
 	animation-fill-mode: forwards;
 }
 
-.weather-result p:nth-child(1) { animation-delay: 0s; }
-.weather-result p:nth-child(2) { animation-delay: 0.05s; }
-.weather-result p:nth-child(3) { animation-delay: 0.1s; }
-.weather-result p:nth-child(4) { animation-delay: 0.15s; }
 
-.weather-result p header {
-	height: 200px;
-	position: relative;
-	background-size: cover;
-	background-position: center center;
-	background-repeat: no-repeat;
-	margin-bottom: 5px; 
 
-	border: 1px solid rgba(0,0,0,0.2);
+.weather-result main .main_temp {
+	float: left;
+	width: 35%;
+	margin: 10px 0;
+	padding: 10px;		
+} 
+.weather-result main .other_temp {
+	float: left;
+	width: 20%;
+	margin: 10px 0;
+	padding: 10px;	
 }
 
-.weather-result p header a {
-	display: block;
-	color: white;
-	width: 100%;
-	height: 100%;
+.weather-result main .weather_desc {
+	text-transform: capitalize;
+	float: left;
+	width: 15%;
+	margin: 10px 0;
+	text-align: center;
+}
+
+.weather-result main .weather_desc p {
 	margin: 0;
-	position: relative;
-	background-color: rgba(255,255,255, 0.5);
+	padding: 0;
 }
 
-.weather-result p header a h2 {
-	position: absolute;
-	bottom: 0;
-	text-decoration: none;
-	margin: 0;
-	color: black;
-	padding: 5px;
+ .weather-result footer {
+ 	border-top: 1px solid rgba(0,0,0,0.3);
+ }
+
+ .weather-result footer p {
+ 	float: left;
+ 	margin: 10px 1%;
+	width: 30%;
+ }
+
+.weather-result .main_temp {
+	font-size: 60px;	
 }
 
-.weather-result p main {
-	margin: 10px auto;
-	font-family: Georgia, Times;
+.weather-result .container > *:nth-child(1) { animation-delay: 0s; }
+.weather-result .container > *:nth-child(2) { animation-delay: 0.05s; }
+.weather-result .container > *:nth-child(3) { animation-delay: 0.1s; }
+.weather-result .container > *:nth-child(4) { animation-delay: 0.15s; }
+
+
+
+#status-bar	 {
+	margin: auto;
+	max-width: 300px;
+	height: 40px;
+	text-align: center;
 }
 
-.weather-result p .article-meta {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	flex-wrap: wrap;
+#status-bar	* {
+	animation-name: enter;
+	animation-duration: 0.2s;
+	max-width: 100%;
+	max-height: 100%;
 }
 
 .error {
-	font-size: 30px;
 	text-align: center;
 	width: 100%;
-	color: rgba(0,0,0,0.6);
+	color: rgb(188, 20, 20);
 	position: relative;
-
-	animation-name: enter;
-	animation-duration: 0.2s;
+	padding: 10px;
+	
 }
 
 footer.main p {
@@ -192,9 +207,20 @@ footer.main p {
 	font-size: 25px;
 }
 
+@keyframes enterFromBottom {
+	0% {
+		top: 200px;
+		opacity: 0;
+	}
+
+	100% {
+		top: 0;
+		opacity: 1;
+	}
+}
+
 @keyframes enter {
 	0% {
-		top: 100px;
 		opacity: 0;
 	}
 

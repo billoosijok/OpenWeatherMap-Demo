@@ -16,6 +16,7 @@
 					<input type="text" name="q" placeholder="City or Zip" id="search-box" >
 					<input type="submit">
 				</form>
+				<div id="status-bar"></div>
 			</div>
 		</div>
 		<main class="main weather-result" id="weather-result">
@@ -24,19 +25,31 @@
 			</div>
 		</main class="main">	
 	</main>
-	
 
 	<script type="text/template" id="template">
-		<p><b>Name:</b> {{name}}</p>
-		<p><b>Temp:</b> {{main.temp}}</p>
-		<p><b>Temp_min:</b> {{main.temp_min}}</p>
-		<p><b>Temp_max:</b> {{main.temp_max}}</p>
-		<p><b>Humidity:</b> {{main.humidity}}</p>
-		<p><b>Pressure:</b> {{main.pressure}}</p>
-		<p><b>Wind Speed:</b> {{wind.speed}}</p>
-		<br>
+			<header>
+				<h2>{{name}}, {{sys.country}}</h2>
+			</header>
+			<main>
+				<div class="main_temp">{{main.temp}} F˚</div>
+				<div class="other_temp">
+					<p class="max_temp">High: {{main.temp_max}} F˚</p>
+					<p class="min_temp">Low: {{main.temp_min}} F˚</p>
+				</div>
+				<div class="weather_desc">
+					<img src="http://openweathermap.org/img/w/{{weather.0.icon}}.png">
+					<p>{{weather.0.description}}</p>
+				</div>
+				<div class="clear"></div>
+			</main>
+			<footer>
+				<p><b>Humidity:</b> {{main.humidity}}%</p>
+				<p><b>Pressure:</b> {{main.pressure}}</p>
+				<p><b>Wind Speed:</b> {{wind.speed}} mph</p>	
+				<div class="clear"></div>
+			</footer>
 	</script>
-	<script src="js/KEYS.js"></script>
+	<script src="KEYS.js"></script>
 	<script src="js/script.js"></script>
 	</body>
 </html>

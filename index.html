@@ -6,12 +6,15 @@
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 	<link rel="stylesheet" href="css/style.css">
 	<script src="js/mustache.min.js"></script>
-	<script   src="https://code.jquery.com/jquery-3.2.1.min.js"   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="   crossorigin="anonymous"></script>	<script src="js/request-api.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>	
+	<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+	<script src="js/request-api.js"></script>
 </head>
 <body>
 	<main class="main">
 		<div class="top-bar">
 			<div class="container">
+				<h1>Weather API</h1>
 				<form id="search-form">
 					<input type="text" name="q" placeholder="City or Zip" id="search-box" >
 					<input type="submit">
@@ -21,12 +24,21 @@
 		</div>
 		<main class="main weather-result" id="weather-result">
 			<div class="container">
-				<!-- To be filled ... -->
+				<ul>
+					<li><a href="#current_weather">Current Weather</a></li>
+					<li><a href="#forecast_weather">Forecast Weather</a></li>
+				</ul>
+				<section id="current_weather">
+					
+				</section>
+				<section id="forecast_weather">
+					
+				</section>
 			</div>
-		</main class="main">	
+		</main>	
 	</main>
 
-	<script type="text/template" id="template">
+	<script type="text/template" id="current_weather_template">
 			<header>
 				<h2>{{name}}, {{sys.country}}</h2>
 			</header>
@@ -49,7 +61,23 @@
 				<div class="clear"></div>
 			</footer>
 	</script>
+	<script type="text/template" id="forecast_weather_template">
+		{{#list}}
+			<main>
+				<div class="main_temp">{{main.temp}} F˚</div>
+				<div class="weather_desc">
+					<img src="http://openweathermap.org/img/w/{{weather.0.icon}}.png">
+					<p>{{weather.0.description}}</p>
+				</div>
+				<div class="clear"></div>
+			</main>
+		{{/list}}
+	</script>
+
 	<script src="KEYS.js"></script>
 	<script src="js/script.js"></script>
+	<script>
+		$("#weather-result").tabs();
+	</script>
 	</body>
 </html>

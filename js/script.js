@@ -2,16 +2,31 @@ $(function() {
 
 	// UI Outlets
 	var listDivContainer = $("#weather-result .container");
-	var template = document.getElementById("template");
+	
+	var current_weather_template = document.getElementById("current_weather_template");
+	var forecast_weather_template = document.getElementById("forecast_weather_template");
+	
+	var current_weather_container = $("#weather-result #current_weather");
+	var forecast_weather_container = $("#weather-result #forecast_weather");
+
 	var searchForm = $("#search-form");
 	var statusBar = $("#status-bar");
 
-	var api = new API_Connect({
+	var cur_weather_api = new API_Connect({
 
 		url: 'http://api.openweathermap.org/data/2.5/weather',
 		apikey: '9b5ce98ebde507370ddccee0e549abf6'
 
 	});
+
+	var forecast_weather_api = new API_Connect({
+
+		url: 'http://api.openweathermap.org/data/2.5/forecast',
+		apikey: '9b5ce98ebde507370ddccee0e549abf6'
+
+	});
+
+	
 
 	init();
 
@@ -24,13 +39,15 @@ $(function() {
 			userLocation.lat = pos.coords.latitude;
 			userLocation.lon = pos.coords.longitude;
 
-			makeRquestWithParams(api, {
-				'appid': api.apikey,
+			makeRquestWithParams(cur_weather_api, {
+				'appid': cur_weather_api.apikey,
 				'lat' : userLocation.lat,
 				'lon' : userLocation.lon,
 				'units' : 'imperial'
 			}, function(result) {
 				loadCurrentWeather(listDivContainer, result);
+				var header = $("#weather-result .container").find("h2")
+				header.html(header.html() + " <span class='current_location'>(Current Location)</span>")
 			});
 		});
 
@@ -40,13 +57,26 @@ $(function() {
 			var query = searchForm.find("input[name='q']").val();
 
 			if(query.length) {
-					makeRquestWithParams(api, {
-					'appid'	: api.apikey,
+
+					// Requesting The Current Weather API
+					makeRquestWithParams(cur_weather_api, {
+					'appid'	: cur_weather_api.apikey,
 					'q'		: query,
 					'units' : 'imperial'
-				}, function(result) {
-					loadCurrentWeather(listDivContainer, result);
-				});
+					}, function(result) {
+						loadCurrentWeather(listDivContainer, result);
+					});
+
+					// Requesting The Forecast Weather API
+					makeRquestWithParams(forecast_weather_api, {
+					'appid'	: forecast_weather_api.apikey,
+					'q'		: query,
+					'units' : 'imperial'
+					}, function(result) {
+						loadForecastWeather(listDivContainer, result);
+						console.log(result);
+					});
+
 			} else {
 				statusBar.html("<div class='error'>Please enter a location!</div>");
 			}
@@ -59,14 +89,22 @@ $(function() {
 
 	function loadCurrentWeather(container, data) {
 		if(data) {
-			container.html(Mustache.to_html(template.innerHTML, data));
+			current_weather_container.html(Mustache.to_html(current_weather_template.innerHTML, data));
+		} else {
+			statusBar.html("<div class='error'>Couldn't find such loaction!</div>");
+		}
+	}
+
+	function loadForecastWeather(container, data) {
+		if(data) {
+			forecast_weather_container.html(Mustache.to_html(forecast_weather_template.innerHTML, data));
 		} else {
 			statusBar.html("<div class='error'>Couldn't find such loaction!</div>");
 		}
 	}
 
 	function makeRquestWithParams(api, params, callback) {
-		statusBar.html("<img src='resources/loading_boys.gif'>");
+		statusBar.html("<img src='resources/loading.gif'>");
 		
 		api.request(params, function(result, status) {
 			
@@ -74,9 +112,8 @@ $(function() {
 
 			if(status == "success") {
 				callback(result);
-				console.log(result);
 			} else {
-				callback(false)
+				callback(false);
 			}
 		});
 

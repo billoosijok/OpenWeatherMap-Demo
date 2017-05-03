@@ -68,7 +68,8 @@
 		<ul class="forecast_days">
 			{{#list}}
 				<li>
-					<div class="main_temp">{{main.temp}} F˚</div>
+					<div class="day"><strong>{{dt}}</strong></div>
+					<div class="main_temp">{{temp.day}} F˚</div>
 					<div class="weather_desc">
 						<img src="http://openweathermap.org/img/w/{{weather.0.icon}}.png">
 						<p>{{weather.0.description}}</p>

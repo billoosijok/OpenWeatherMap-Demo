@@ -21,11 +21,12 @@ $(function() {
 
 	var forecast_weather_api = new API_Connect({
 
-		url: 'http://api.openweathermap.org/data/2.5/forecast',
+		url: 'http://api.openweathermap.org/data/2.5/forecast/daily',
 		apikey: '9b5ce98ebde507370ddccee0e549abf6'
 
 	});
 
+	const WEEK_DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 	
 
 	init();
@@ -111,7 +112,15 @@ $(function() {
 
 	function loadForecastWeather(container, data) {
 		if(data) {
+
+			// Cutting down the number of results to 5.
 			data.list = data.list.slice(0, 5);
+
+			// Prettifying the date
+			for (var i = 0; i < data.list.length; i++) {
+				let day = new Date(data.list[i].dt * 1000).getDay();
+				data.list[i].dt = WEEK_DAYS[day];
+			}
 
 			forecast_weather_container.html(Mustache.to_html(forecast_weather_template.innerHTML, data));
 		} else {

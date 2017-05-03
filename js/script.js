@@ -45,10 +45,24 @@ $(function() {
 				'lon' : userLocation.lon,
 				'units' : 'imperial'
 			}, function(result) {
+				
 				loadCurrentWeather(listDivContainer, result);
-				var header = $("#weather-result .container").find("h2")
+
+			});
+
+			// Requesting The Forecast Weather API
+			makeRquestWithParams(forecast_weather_api, {
+			'appid'	: forecast_weather_api.apikey,
+			'lat' : userLocation.lat,
+			'lon' : userLocation.lon,
+			'units' : 'imperial'
+			}, function(result) {
+				loadForecastWeather(listDivContainer, result);
+
+				var header = $("#weather-result .container h2")
 				header.html(header.html() + " <span class='current_location'>(Current Location)</span>")
 			});
+
 		});
 
 		searchForm.submit(function(e) {
@@ -97,6 +111,8 @@ $(function() {
 
 	function loadForecastWeather(container, data) {
 		if(data) {
+			data.list = data.list.slice(0, 5);
+
 			forecast_weather_container.html(Mustache.to_html(forecast_weather_template.innerHTML, data));
 		} else {
 			statusBar.html("<div class='error'>Couldn't find such loaction!</div>");
@@ -104,8 +120,11 @@ $(function() {
 	}
 
 	function makeRquestWithParams(api, params, callback) {
-		statusBar.html("<img src='resources/loading.gif'>");
 		
+		statusBar.html("<img src='resources/loading.gif'>");
+		// current_weather_container.html("<img src='resources/loading.gif'>");
+		// forecast_weather_container.html("<img src='resources/loading.gif'>");
+
 		api.request(params, function(result, status) {
 			
 			statusBar.html("");

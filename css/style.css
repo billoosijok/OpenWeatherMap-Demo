@@ -98,18 +98,18 @@ header.main {
 	/*box-shadow: 0 0 2px rgba(0,0,0,0.5)*/
 }
 
-.weather-result ul {
+.weather-result ul#tab {
 	display: flex;
 	border-radius: 100px;
 	overflow: hidden;
-	width: 390px;
+	width: 400px;
 	margin: auto;
 	padding: 0;
 	border: 2px solid rgba(0,0,0,1);
 	align-content: stretch;
 }
 
-.weather-result li {
+.weather-result ul#tab li {
 	display: inline-block;
 	width: 50%;
 
@@ -117,10 +117,10 @@ header.main {
 
 .weather-result .ui-tabs-nav .ui-tabs-anchor {
 	display: block;
-	padding: 20px;
+	padding: 15px;
 	text-decoration: none;
 	text-align: center;
-	font-size: 16px;
+	font-size: 15px;
 	font-weight: bold;
 	opacity: 0.7;
 	color: rgba(0,0,0,0.8);
@@ -195,11 +195,26 @@ header.main {
 	font-size: 60px;	
 }
 
+.weather-result #forecast_weather ul.forecast_days {
+	padding: 0;
+	list-style: none;
+	padding: 30px 0;
+}
+
+#forecast_weather ul.forecast_days li {
+	float: left;
+	width: 20%;
+	text-align: center;
+}
+
+#forecast_weather ul.forecast_days .main_temp {
+	font-size: 30px;
+}
+
 .weather-result .container > *:nth-child(1) { animation-delay: 0s; }
 .weather-result .container > *:nth-child(2) { animation-delay: 0.05s; }
 .weather-result .container > *:nth-child(3) { animation-delay: 0.1s; }
 .weather-result .container > *:nth-child(4) { animation-delay: 0.15s; }
-
 
 
 #status-bar	 {

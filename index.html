@@ -24,9 +24,9 @@
 		</div>
 		<main class="main weather-result" id="weather-result">
 			<div class="container">
-				<ul>
+				<ul id="tab">
 					<li><a href="#current_weather">Current Weather</a></li>
-					<li><a href="#forecast_weather">Forecast Weather</a></li>
+					<li><a href="#forecast_weather">Forecast</a></li>
 				</ul>
 				<section id="current_weather">
 					
@@ -62,16 +62,21 @@
 			</footer>
 	</script>
 	<script type="text/template" id="forecast_weather_template">
-		{{#list}}
-			<main>
-				<div class="main_temp">{{main.temp}} F˚</div>
-				<div class="weather_desc">
-					<img src="http://openweathermap.org/img/w/{{weather.0.icon}}.png">
-					<p>{{weather.0.description}}</p>
-				</div>
-				<div class="clear"></div>
-			</main>
-		{{/list}}
+		<header>
+			<h2>{{city.name}}, {{city.country}}</h2>
+		</header>
+		<ul class="forecast_days">
+			{{#list}}
+				<li>
+					<div class="main_temp">{{main.temp}} F˚</div>
+					<div class="weather_desc">
+						<img src="http://openweathermap.org/img/w/{{weather.0.icon}}.png">
+						<p>{{weather.0.description}}</p>
+					</div>
+					<div class="clear"></div>
+				</li>
+			{{/list}}
+		</ul>
 	</script>
 
 	<script src="KEYS.js"></script>
